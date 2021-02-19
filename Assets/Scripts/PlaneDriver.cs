@@ -93,7 +93,7 @@ public class PlaneDriver : MonoBehaviour
     private float vaporStrength = 0;
     private ParticleSystem mainPlume;
     private ParticleSystem shockDiamonds;
-    private float spread = 0.3f;
+    private float spread = 0.8f;
     private Rigidbody nextTarget;
     private float rotStrength = 0f;
     // Start is called before the first frame update
