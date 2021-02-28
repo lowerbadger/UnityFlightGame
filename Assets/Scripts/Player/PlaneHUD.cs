@@ -76,6 +76,7 @@ public class PlaneHUD : MonoBehaviour
     private Text textCannonAmmo;
     private GameObject[] textMissileCool;
     private GameObject[] fillSpCool;
+    private GameObject health;
     private Text textBomb;
     private Text flare;
     Vector3 bombPos;
@@ -104,6 +105,7 @@ public class PlaneHUD : MonoBehaviour
     List<GameObject> bombMarker;
     GameObject[] missileLoad;
     GameObject[] spLoad;
+    GameObject healthMeter;
     
     GameObject bomb;
 
@@ -198,6 +200,8 @@ public class PlaneHUD : MonoBehaviour
         textMissileCool = new GameObject[missileLoad.Length];
         spLoad = new GameObject[2];
         fillSpCool = new GameObject[spLoad.Length];
+        healthMeter = new GameObject();
+        health = new GameObject();
         //missileFrac = new float[missileLoad.Length];
 
         fire = goCanvas.transform.Find("Fire").gameObject;
@@ -208,6 +212,7 @@ public class PlaneHUD : MonoBehaviour
         cannon = goCanvas.transform.Find("Cannon").gameObject;
         missileLoad[0] = goCanvas.transform.Find("MissileLoad1").gameObject;
         missileLoad[1] = goCanvas.transform.Find("MissileLoad2").gameObject;
+        healthMeter = goCanvas.transform.Find("HealthMeter").gameObject;
         prograde = goCanvas.transform.Find("Prograde").gameObject;
         tNextTarget = goCanvas.transform.Find("NextTarget").gameObject;
 
@@ -235,6 +240,7 @@ public class PlaneHUD : MonoBehaviour
             fillSpCool[i] = spLoad[i].transform.Find("BombLoadMask").transform.Find("CoolDown").gameObject;
         }
 
+        health = healthMeter.transform.Find("HealthOutline").transform.Find("Health").gameObject;
         minimap = goCanvas.transform.Find("Minimap").gameObject;
 
         //Adjust UI placement based on screen size
@@ -244,11 +250,12 @@ public class PlaneHUD : MonoBehaviour
         textStall.transform.position = new Vector3(Screen.width /2f, Screen.height * 0.25f, 0);
         textPSM.transform.position = new Vector3(Screen.width / 2f, Screen.height * 0.1f, 0);
         missileLoad[0].transform.position = new Vector3(Screen.width * 0.8f, Screen.height * 0.2f, 0);
-        missileLoad[1].transform.position = new Vector3(Screen.width * 0.84f, Screen.height * 0.2f, 0);
+        missileLoad[1].transform.position = new Vector3(Screen.width * 0.83f, Screen.height * 0.2f, 0);
         spLoad[0].transform.position = new Vector3(Screen.width * 0.8f, Screen.height * 0.2f, 0);
         spLoad[1].transform.position = new Vector3(Screen.width * 0.84f, Screen.height * 0.2f, 0);
         flare.transform.position = new Vector3(Screen.width * 0.82f, Screen.height * 0.07f, 0);
         minimap.transform.position = new Vector3(Screen.width * 0.1f, Screen.height * 0.2f, 0);
+        healthMeter.transform.position = new Vector3(Screen.width * 0.88f, Screen.height * 0.23f, 0);
 
         //Got a lot of UI objects to instantiate
         bearing = new GameObject("Bearing");
@@ -437,6 +444,20 @@ public class PlaneHUD : MonoBehaviour
     //Update works now switched camera to FixedUpdate
     void Update()
     {
+        //Update healthbar
+
+        float healthBar = pPlane.GetComponent<PlayerHealth>().health;
+        if (healthBar < 20)
+        {
+            health.GetComponent<Image>().color = Color.red;
+            healthMeter.GetComponent<Image>().color = Color.red;
+        }
+        else
+        {
+            health.GetComponent<Image>().color = Color.green;
+            healthMeter.GetComponent<Image>().color = Color.green;
+        }
+        health.transform.localScale = new Vector3(1, healthBar / 100f, 1);
 
         float flareReady = pPlane.GetComponent<PlaneDriver>().flareCool - (Time.time - pPlane.GetComponent<PlaneDriver>().flareTime);
         if (flareReady < 0)

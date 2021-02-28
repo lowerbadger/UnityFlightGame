@@ -76,9 +76,9 @@
     <Compile Include="Assets\Scripts\EnemyHealth.cs" />
     <Compile Include="Assets\Scripts\MissileTrack.cs" />
     <Compile Include="Assets\Scripts\NameTag.cs" />
-    <Compile Include="Assets\Scripts\PlaneDriver.cs" />
-    <Compile Include="Assets\Scripts\PlaneHUD.cs" />
-    <Compile Include="Assets\Scripts\PlayerHealth.cs" />
+    <Compile Include="Assets\Scripts\Player\PlaneDriver.cs" />
+    <Compile Include="Assets\Scripts\Player\PlaneHUD.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerHealth.cs" />
     <Compile Include="Assets\Scripts\ProjectileMove.cs" />
     <Compile Include="Assets\Scripts\UIscripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\UIscripts\PauseMenu.cs" />
