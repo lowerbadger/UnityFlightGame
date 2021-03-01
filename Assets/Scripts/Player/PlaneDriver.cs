@@ -213,7 +213,7 @@ public class PlaneDriver : MonoBehaviour
         ChangeStartColor(shockDiamonds, new Color(plumeStrength, plumeStrength, plumeStrength, 0));
 
         jetEngine.pitch = 1f + (thrust - 100f) * .001f;
-        jetEngine.volume = 0.5f + (thrust - 200f) / 2000f;
+        jetEngine.volume = 0.3f + (thrust - 200f) / 2000f;
         windSFX.pitch = 0.8f + speed / 100f;
         windSFX.volume = 0.3f + speed / 100f;
 

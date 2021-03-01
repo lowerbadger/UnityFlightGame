@@ -1,27 +1,27 @@
 ﻿using UnityEngine.Audio;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
     public AudioMixer mixer;
+    public Slider slider;
     //public string parameterName = "MasterVolume";
     // Start is called before the first frame update
     void Start()
     {
-        mixer.SetFloat("MasterVolume", 0f);
+        //mixer.SetFloat("MasterVolume", 0f);
+        slider.value = PlayerPrefs.GetFloat("MasterVolume", 1f);
     }
 
 
     // Update is called once per frame
-    void Update()
+    
+
+    public void SetLevel(float sliderValue)
     {
-        if (PauseMenu.GameIsPaused)
-        {
-            mixer.SetFloat("MasterVolume", -100f);
-        }
-        else
-        {
-            mixer.SetFloat("MasterVolume", 0f);
-        }
+        //float sliderValue = slider.value;
+        mixer.SetFloat("MasterVolume", Mathf.Log10(sliderValue) * 20);
+        PlayerPrefs.SetFloat("MasterVolume", sliderValue);
     }
 }
